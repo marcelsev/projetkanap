@@ -70,6 +70,9 @@ buttonPanier.addEventListener("click", (e)=> {e.preventDefault();
       //console.log(saveProduitLocalStorage);
 
       if (saveProduitLocalStorage){
+        saveProduitLocalStorage.push(optionProduct);
+        //console.log(saveProduitLocalStorage);
+         localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
     }else {saveProduitLocalStorage = [];
       saveProduitLocalStorage.push(optionProduct);
       //console.log(saveProduitLocalStorage);
