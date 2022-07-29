@@ -5,7 +5,7 @@ let search_params = new URLSearchParams (url.search);
 
     if (search_params.has ("id")) {
     var nom = search_params.get("id");
-     //console.log (nom);
+    // console.log (nom);
     }
     
         fetch(urlStock+nom)
@@ -42,40 +42,52 @@ let search_params = new URLSearchParams (url.search);
         allColors.append(color)
             }
         } 
-        const qtyProduct = document.getElementById("quantity")
-// button ajouter au panier -------
-let addProduct = (data) =>{
-let buttonPanier = document.getElementById("addToCart");
-buttonPanier.addEventListener('click', (e) => {
-    e.preventDefault();
 
-    if (allColors.value  == false){
-        confirm ('Sélectionner une couleur');
-    } else if (qtyProduct.value == 0){
-        confirm ('Sélectionner la quantité');
-    } else {
-        alert(" L'article a été ajouté au panier");
-    }
+
+// -------button ajouter au panier, gestion -------------
+// selectors ----------
+const qtyProduct = document.getElementById("quantity");     
+        //console.log(qtyProduct); 
+const  formColor= document.querySelector("#colors");
+const buttonPanier = document.getElementById("addToCart");
+//console.log(buttonPanier); 
+
+//ecouter le bouton et envoyer le panier---------
+
+buttonPanier.addEventListener("click", (e)=> {e.preventDefault();
+    const optionColor = formColor.value;
+    const qntity = qtyProduct.value;
     let optionProduct = {
-        idProduit: data._id,
-        colorProduct: allColors.value,
-        quantite: perseInt(qtyProduct.value, 10)
+        idProduit: nom,
+        colorProduct: optionColor,
+        quantite: qntity
       };
 
-      //console.log(optionProduct)
+      //console.log(optionProduct); 
+      //------ --localstorage--------------
 
       let saveProduitLocalStorage = JSON.parse(localStorage.getItem("product"));
-      if (saveProduitLocalStorage){}
-      else {saveProduitLocalStorage = [];
-      
-       saveProduitLocalStorage.push(optionProduct);
+      //console.log(saveProduitLocalStorage);
+
+      if (saveProduitLocalStorage){
+    }else {saveProduitLocalStorage = [];
+      saveProduitLocalStorage.push(optionProduct);
+      //console.log(saveProduitLocalStorage);
        localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
-   console.log(saveProduitLocalStorage);
-} 
- PageCart.addEventListener("click", () => {
-    window.location.href="./cart.html";
- });
-})} 
+       
+       console.log(saveProduitLocalStorage);
+     }
+});
+
+
+
+
+
+
+
+
+
+
 
 
     
