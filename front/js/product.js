@@ -67,22 +67,21 @@ buttonPanier.addEventListener("click", (e)=> {e.preventDefault();
       //------ --localstorage--------------
 
       let saveProduitLocalStorage = JSON.parse(localStorage.getItem("product"));
-      //console.log(saveProduitLocalStorage);
 
       if (saveProduitLocalStorage){
         saveProduitLocalStorage.push(optionProduct);
-        //console.log(saveProduitLocalStorage);
          localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
     }else {saveProduitLocalStorage = [];
       saveProduitLocalStorage.push(optionProduct);
-      //console.log(saveProduitLocalStorage);
        localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
        
        console.log(saveProduitLocalStorage);
      }
 });
 
-
+buttonPanier.addEventListener("click", () => {
+    window.location.href = "./cart.html";
+  });
 
 
 
