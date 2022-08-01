@@ -57,10 +57,12 @@ let search_params = new URLSearchParams (url.search);
     buttonPanier.addEventListener("click", (e)=> {e.preventDefault();
         const optionColor = formColor.value;
         const qntity = qtyProduct.value;
+        
     let optionProduct = {
         idProduit: nom,
         colorProduct: optionColor,
-        quantite: qntity
+        quantite: qntity,
+
     };
 
     //console.log(optionProduct); 
