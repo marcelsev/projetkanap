@@ -16,8 +16,8 @@ let search_params = new URLSearchParams (url.search);
             //console.log(data);
         
      //nom du produit-----
-        let nom = document.getElementById("title");
-            nom.innerHTML = data.name;
+        let name = document.getElementById("title");
+            name.innerHTML = data.name;
         let tittle = document.querySelector("title");
             tittle.innerHTML=data.name;
      //image du produit-----
