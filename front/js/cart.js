@@ -5,13 +5,36 @@
       const ItemProduit = document.querySelector("#cart__items");
       console.log (ItemProduit);
 
-      if (saveProduitLocalStorage === null) {
-      } else {
-        let CarteProduct = [];
-        
-        for (ele = 0; ele < saveProduitLocalStorage.length; ele++){
-      console.log(saveProduitLocalStorage.length);
-            produitPanier = `<article class="cart__item" data-id="${saveProduitLocalStorage.id}" data-color="${saveProduitLocalStorage.color}">
+        if (saveProduitLocalStorage === null) {
+        } else {
+            let CarteProduct = [];
+            for (ele = 0; ele < saveProduitLocalStorage.length; ele++){
+        console.log(saveProduitLocalStorage.length);
+            let article = document.createElement("article");
+                article.innerHTML= "";
+            let a = document.createElement("a");
+                a.href=`./product.html?id=${data[i]._id}`;
+       
+     let img = document.createElement("img");
+        img.src= data[i].imageUrl
+        img.alt= data[i].altTxt;
+    
+     let nom = document.createElement("h3");
+         nom.innerHTML= data[i].name;
+
+     let p = document.createElement("p");
+         p.innerHTML= data[i].description;
+
+         a.insertAdjacentElement("afterbegin", article);
+         article.append(img,nom,p);
+         product.append(a);   
+
+            
+            
+            
+            
+            
+            `<article class="cart__item" data-id="${saveProduitLocalStorage.id}" data-color="${saveProduitLocalStorage.color}">
             <div class="cart__item__img">
               <img src="${saveProduitLocalStorage.imageUrl}" alt="${saveProduitLocalStorage.altTxt}">
             </div>

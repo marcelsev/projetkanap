@@ -11,13 +11,13 @@ fetch(urlStock)
 
   for (let i = 0; i < data.length; i++) {
      let article = document.createElement("article");
-       article.innerHTML= "";
+        article.innerHTML= "";
      let a = document.createElement("a");
-       a.href=`./product.html?id=${data[i]._id}`;
+        a.href=`./product.html?id=${data[i]._id}`;
        
      let img = document.createElement("img");
-       img.src= data[i].imageUrl
-       img.alt= data[i].altTxt;
+        img.src= data[i].imageUrl
+        img.alt= data[i].altTxt;
     
      let nom = document.createElement("h3");
          nom.innerHTML= data[i].name;
