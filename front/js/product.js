@@ -41,7 +41,7 @@ let search_params = new URLSearchParams (url.search);
             color.textContent= colorOption
             allColors.append(color)
         }
-    } 
+ 
 
 
 // -------button ajouter au panier, gestion -------------
@@ -50,6 +50,7 @@ let search_params = new URLSearchParams (url.search);
         //console.log(qtyProduct); 
     const  formColor= document.querySelector("#colors");
     const buttonPanier = document.getElementById("addToCart");
+    
 //console.log(buttonPanier); 
 
 //ecouter le bouton et envoyer le panier---------
@@ -57,13 +58,21 @@ let search_params = new URLSearchParams (url.search);
     buttonPanier.addEventListener("click", (e)=> {e.preventDefault();
         const optionColor = formColor.value;
         const qntity = qtyProduct.value;
-        
+        const nomProduct= data.name;
+        const imgProductSrc= data.imageUrl;
+        const imgProductAlt= data.altTxt;
+        const priceProduct= data.price;
     let optionProduct = {
         idProduit: nom,
         colorProduct: optionColor,
-        quantite: qntity
-    };
+        quantite: qntity,
+        nameProduct: nomProduct,
+        imgUrl: imgProductSrc,
+        imgAtl: imgProductAlt,
+        price: priceProduct
 
+    };
+    
     //console.log(optionProduct); 
 //------ --localstorage--------------
 
@@ -83,7 +92,7 @@ let search_params = new URLSearchParams (url.search);
     buttonPanier.addEventListener("click", () => {
     window.location.href = "./cart.html";
     });
-
+        }
 
 
 

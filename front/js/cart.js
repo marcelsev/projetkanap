@@ -1,4 +1,3 @@
- const urlStock= 'http://localhost:3000/api/products/';
 
 
       let saveProduitLocalStorage = JSON.parse(localStorage.getItem("product"));
@@ -7,10 +6,7 @@
       const ItemProduit = document.querySelector("#cart__items");
       //console.log (ItemProduit);
 
-      fetch(urlStock)
-        .then(response => response.json())
-        .then((data) => infoStock(data)) 
-        const infoStock = (data)=> {
+      
 
         
             
@@ -20,8 +16,8 @@
 
         } else {
             let carteProduct = [];
-            for (let i = 0; i < saveProduitLocalStorage.length; i++){
-        //console.log(cart.length);
+        for (let i = 0; i < saveProduitLocalStorage.length; i++){
+        console.log(saveProduitLocalStorage.length);
 // article--------------
 
         let article = document.createElement("article");
@@ -32,8 +28,8 @@
             article.append(containerImg);   
             containerImg.classList.add("cart__item__img")   
         let img= document.createElement("img")
-            img.src=""
-            img.alt=""; 
+            img.src= saveProduitLocalStorage[i].imgUrl;
+            img.alt=saveProduitLocalStorage[i].imgAlt; 
                 containerImg.append(img);
 
      //contenu-----------           
@@ -46,21 +42,25 @@
             containerContenuDescription.classList.add("cart__item__content__description");
      //nom----------- 
         let h2 = document.createElement("h2")
-            h2.innerHTML= "Nom du produit";
+            h2.innerHTML= saveProduitLocalStorage[i].nameProduct;
     //color---------
 
         let colorItem= document.createElement("p");
-            colorItem.innerHTML= saveProduitLocalStorage.colorProduct;
+            colorItem.innerHTML= saveProduitLocalStorage[i].colorProduct;
     //prix------------------
         let priceItem = document.createElement("p");
-            priceItem.innerHTML=" €"
+            priceItem.innerHTML= `${saveProduitLocalStorage[i].price} €`;
             containerContenuDescription.append(h2, colorItem, priceItem);
-//product quantite------
-        let quantiteItem= document.createElement("div");
-            quantiteItem.classList.add("cart__item__content__settings");
-            article.append( quantiteItem);
+//product parametres------
+        let parametresItem= document.createElement("div");
+            parametresItem.classList.add("cart__item__content__settings");
+            article.append(parametresItem);
+   // quantite product ---------         
+        let quantiteItem=document.createElement("div");
+            quantiteItem.classList.add("cart__item__content__settings__quantity")
+            parametresItem.append(quantiteItem);
         let parQte= document.createElement("p");
-            parQte.innerHTML= "Qté :"
+            parQte.innerHTML= "Qté : "; 
             quantiteItem.append(parQte);
           //input------
         let inputQte= document.createElement("input");
@@ -68,14 +68,28 @@
             inputQte.name= "itemQuantity"
             inputQte.min = "1"
             inputQte.max = "100"
-            inputQte.valueAsNumber= "42"
+            inputQte.valueAsNumber= saveProduitLocalStorage[i].quantite
             inputQte.classList.add("itemQuantity")   
             quantiteItem.append (inputQte);   
-
+// delete---------
+            let buttonDelete = document.createElement("div");
+            buttonDelete.classList.add("cart__item__content__settings__delete")
+            parametresItem.append(buttonDelete);
+            let pDelete= document.createElement("p");
+            pDelete.classList.add("deleteItem");
+            pDelete.innerHTML="Supprimer";
+            buttonDelete.append(pDelete);
 
         ItemProduit.append(article);
-   }}}         
-          /*  carteProduct = carteProduct + `<article class="cart__item" 
+   }}      
+
+
+
+
+
+
+
+          /* carteProduct = carteProduct + `<article class="cart__item" 
             data-id="" data-color="">
             <div class="cart__item__img">
               <img src="" alt="">
@@ -83,7 +97,7 @@
             <div class="cart__item__content">
               <div class="cart__item__content__description">
                 <h2></h2>
-                <p></p>
+                <p>"${saveProduitLocalStorage[i].colorProduct}</p>
                 <p>€</p>
               </div>
               <div class="cart__item__content__settings">
@@ -101,4 +115,4 @@
 
         }
               }
-                  }
+                  } */
