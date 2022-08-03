@@ -15,7 +15,7 @@
         
             
         if (saveProduitLocalStorage === null) {
-            const panierVide = `<article class="cart__item"> Le panier est vide</article>`;
+            const panierVide = `<article class="cart__item">Le panier est vide</article>`;
             ItemProduit.innerHTML= panierVide;
 
         } else {
@@ -25,56 +25,56 @@
 // article--------------
 
         let article = document.createElement("article");
-        article.innerHTML="";
-                article.classList.add("cart__item")
+            article.innerHTML="";
+            article.classList.add("cart__item")
     //image------------------
-          let containerImg= document.createElement("div");
-          article.append(containerImg);   
-          containerImg.classList.add("cart__item__img")   
+        let containerImg= document.createElement("div");
+            article.append(containerImg);   
+            containerImg.classList.add("cart__item__img")   
         let img= document.createElement("img")
-        img.src=""
-        img.alt=""; 
+            img.src=""
+            img.alt=""; 
                 containerImg.append(img);
 
      //contenu-----------           
-     let containerContenu = document.createElement("div");
-     article.append(containerContenu);
-     containerContenu.classList.add("cart__item__content");
+        let containerContenu = document.createElement("div");
+            article.append(containerContenu);
+            containerContenu.classList.add("cart__item__content");
     //contenu description--------
-     let containerContenuDescription= document.createElement("div");
-     containerContenu.append(containerContenuDescription);
-     containerContenuDescription.classList.add("cart__item__content__description");
+        let containerContenuDescription= document.createElement("div");
+            containerContenu.append(containerContenuDescription);
+            containerContenuDescription.classList.add("cart__item__content__description");
      //nom----------- 
-     let h2 = document.createElement("h2")
-        h2.innerHTML= "Nom du produit";
+        let h2 = document.createElement("h2")
+            h2.innerHTML= "Nom du produit";
     //color---------
 
         let colorItem= document.createElement("p");
-        colorItem.innerHTML= saveProduitLocalStorage.colorProduct;
+            colorItem.innerHTML= saveProduitLocalStorage.colorProduct;
     //prix------------------
         let priceItem = document.createElement("p");
-        priceItem.innerHTML=" €"
-        containerContenuDescription.append(h2, colorItem, priceItem);
+            priceItem.innerHTML=" €"
+            containerContenuDescription.append(h2, colorItem, priceItem);
 //product quantite------
-                let quantiteItem= document.createElement("div");
-                quantiteItem.classList.add("cart__item__content__settings");
-               article.append( quantiteItem);
-                let parQte= document.createElement("p");
-                parQte.innerHTML= "Qté :"
-                quantiteItem.append(parQte);
+        let quantiteItem= document.createElement("div");
+            quantiteItem.classList.add("cart__item__content__settings");
+            article.append( quantiteItem);
+        let parQte= document.createElement("p");
+            parQte.innerHTML= "Qté :"
+            quantiteItem.append(parQte);
           //input------
-          let inputQte= document.createElement("input");
-          inputQte.type= "number"
-          inputQte.name= "itemQuantity"
-          inputQte.min = "1"
-          inputQte.max = "100"
-          inputQte.valueAsNumber= "42"
-          inputQte.classList.add("itemQuantity")   
-          quantiteItem.append (inputQte);   
+        let inputQte= document.createElement("input");
+            inputQte.type= "number"
+            inputQte.name= "itemQuantity"
+            inputQte.min = "1"
+            inputQte.max = "100"
+            inputQte.valueAsNumber= "42"
+            inputQte.classList.add("itemQuantity")   
+            quantiteItem.append (inputQte);   
 
 
         ItemProduit.append(article);
-            }}}         
+   }}}         
           /*  carteProduct = carteProduct + `<article class="cart__item" 
             data-id="" data-color="">
             <div class="cart__item__img">
@@ -102,21 +102,3 @@
         }
               }
                   }
-
-        /* let article = document.createElement("article");
-                article.innerHTML= "";
-       
-     let img = document.createElement("img");
-        img.src= data[i].imageUrl
-        img.alt= data[i].altTxt;
-    
-     let nom = document.createElement("h3");
-         nom.innerHTML= data[i].name;
-
-     let p = document.createElement("p");
-         p.innerHTML= data[i].description;
-
-         a.insertAdjacentElement("afterbegin", article);
-         article.append(img,nom,p);
-         product.append(a);  */
-            
