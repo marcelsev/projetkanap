@@ -47,7 +47,6 @@ let search_params = new URLSearchParams (url.search);
 // -------button ajouter au panier, gestion -------------
 // selectors ----------
     const qtyProduct = document.getElementById("quantity");     
-        //console.log(qtyProduct); 
     const  formColor= document.querySelector("#colors");
     const buttonPanier = document.getElementById("addToCart");
     
@@ -73,7 +72,6 @@ let search_params = new URLSearchParams (url.search);
 
     };
     
-    //console.log(optionProduct); 
 //------ --localstorage--------------
 
     let saveProduitLocalStorage = JSON.parse(localStorage.getItem("product"));
