@@ -13,7 +13,7 @@ let search_params = new URLSearchParams (url.search);
         .then((data) => infoStock(data)) 
 
         const infoStock = (data)=> {
-            //console.log(data);
+            console.log(data);
         
      //nom du produit-----
         let name = document.getElementById("title");
@@ -61,8 +61,7 @@ let search_params = new URLSearchParams (url.search);
     let optionProduct = {
         idProduit: nom,
         colorProduct: optionColor,
-        quantite: qntity,
-
+        quantite: qntity
     };
 
     //console.log(optionProduct); 
@@ -77,7 +76,7 @@ let search_params = new URLSearchParams (url.search);
         saveProduitLocalStorage.push(optionProduct);
         localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
        
-        console.log(saveProduitLocalStorage);
+       // console.log(saveProduitLocalStorage);
         }
     });
 
