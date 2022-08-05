@@ -13,7 +13,7 @@ let search_params = new URLSearchParams (url.search);
         .then((data) => infoStock(data)) 
 
         const infoStock = (data)=> {
-            console.log(data);
+            //console.log(data);
         
      //nom du produit-----
         let name = document.getElementById("title");
@@ -57,7 +57,7 @@ let search_params = new URLSearchParams (url.search);
     buttonPanier.addEventListener("click", (e)=> {e.preventDefault();
         const optionColor = formColor.value;
         const qntity = qtyProduct.value;
-        const changerQty = Number(qtyProduct.value);
+        
         const nomProduct= data.name;
         const imgProductSrc= data.imageUrl;
         const imgProductAlt= data.altTxt;
@@ -65,26 +65,27 @@ let search_params = new URLSearchParams (url.search);
     let optionProduct = {
         idProduit: nom,
         colorProduct: optionColor,
-        quantite: changerQty,
+        quantite: qntity,
         nameProduct: nomProduct,
         imgUrl: imgProductSrc,
         imgAtl: imgProductAlt,
         price: priceProduct
-
+ 
     };
+   
     
 //------ --localstorage--------------
 
-    let saveProduitLocalStorage = JSON.parse(localStorage.getItem("product"));
+    let saveProduitLocalStorage = JSON.parse(localStorage.getItem("products"));
 
       if (saveProduitLocalStorage){
         saveProduitLocalStorage.push(optionProduct);
-        localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
+        localStorage.setItem("products", JSON.stringify(saveProduitLocalStorage));
         }else {saveProduitLocalStorage = [];
         saveProduitLocalStorage.push(optionProduct);
-        localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
+        localStorage.setItem("products", JSON.stringify(saveProduitLocalStorage));
        
-       // console.log(saveProduitLocalStorage);
+       console.log(saveProduitLocalStorage);
         }
     });
 

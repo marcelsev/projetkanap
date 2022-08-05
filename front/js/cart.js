@@ -1,6 +1,6 @@
 
 // info du localStorage---------
-      let saveProduitLocalStorage = JSON.parse(localStorage.getItem("product"));
+      let saveProduitLocalStorage = JSON.parse(localStorage.getItem("products"));
       console.log(saveProduitLocalStorage);
 // id DOM----------------
       const ItemProduit = document.querySelector("#cart__items");
@@ -90,7 +90,7 @@
         let selectProductSup = saveProduitLocalStorage[s].idProduit;
             console.log(selectProductSup);
             saveProduitLocalStorage= saveProduitLocalStorage.filter( (el) => el.idProduit !== selectProductSup);
-            localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
+            localStorage.setItem("products", JSON.stringify(saveProduitLocalStorage));
             alert("Ce produit a été supprimé");
             window.location.href = "http://127.0.0.1:5500/front/html/cart.html";
         })
@@ -109,23 +109,35 @@
                 
             }
 
-        //console.log (changement);
+        console.log (changement);
             }) 
                   // toujours à travailler pour trouver comme faire 
             });  
 // total products ---------------
+            let totalProduct= [];
+            for (let i = 0 ; i < saveProduitLocalStorage.length;i++){
+                let quantiteTotal = saveProduitLocalStorage[i].quantite;
+                let changerNumber = Number(quantiteTotal);
+                    totalProduct.push(changerNumber);
+                    //console.log(quantiteTotal)
+                }
+                const reducer = (accumulator, currentValue)=> accumulator + currentValue;
+                const qtyTotalPanier = totalProduct.reduce(reducer,0);
+                    //console.log (qtyTotalPanier)
+                const qtyAffichage= document.querySelector("#totalQuantity");
+                    qtyAffichage.innerHTML=qtyTotalPanier;
 
-        let totalProduct= [];
+       /*let totalProduct= [];
         for (let i = 0 ; i < saveProduitLocalStorage.length;i++){
         let quantiteTotal = saveProduitLocalStorage[i].quantite;
             totalProduct.push(quantiteTotal);
-            //console.log(quantiteTotal)
+            console.log(quantiteTotal)
         }
         const reducer = (accumulator, currentValue)=> accumulator + currentValue;
         const qtyTotalPanier = totalProduct.reduce(reducer,0);
             //console.log (qtyTotalPanier)
         const qtyAffichage= document.querySelector("#totalQuantity");
-            qtyAffichage.innerHTML=qtyTotalPanier;
+            qtyAffichage.innerHTML=qtyTotalPanier;*/
 
 // total price --------------------
         let totalPrice = [];
@@ -154,10 +166,7 @@
      // valider le formulaire ----------------------------
         // erreur de text dans le formulaire-------------------
         const regexFormulaire = (value)=>{
-            return /^[A-Z a-z]{3,20}$/.test(value);
-        }
-        const textAlertErr= (value)=>{
-            return `${value}: Veuillez bien remplir le formulaire`;
+            return /^([A-Z a-z]{3,20})?([-]{0,1})?([A-Z a-z]{3,20})$/.test(value);
         }
         // gestion validation de text -------------------
             
@@ -165,23 +174,22 @@
         function validerPrenom (){
           const prenom = formulaireInfoClient.firstName;
           if(regexFormulaire(prenom)){
+            document.querySelector("#firstNameErrorMsg").textContent= "";
             return true;
           }else{
-            let messageErr= document.querySelector("#firstNameErrorMsg");
-            messageErr.textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
+            document.querySelector("#firstNameErrorMsg").textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
             return false;
             }
         }
-       
 
             //Nom----------
         function validerNom (){
           const nom = formulaireInfoClient.lastName;
           if(regexFormulaire(nom)){
+             document.querySelector("#lastNameErrorMsg").textContent="";
              return true;
           }else{
-             let messageErrNom= document.querySelector("#lastNameErrorMsg");
-             messageErrNom.textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
+             document.querySelector("#lastNameErrorMsg").textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
              return false;
              }
         }
@@ -190,10 +198,10 @@
         function validerVille (){
           const ville = formulaireInfoClient.city;
           if(regexFormulaire(ville)){
-            return true;
+             document.querySelector("#cityErrorMsg").textContent="";
+             return true;
           }else{
-             let messageErrCity= document.querySelector("#cityErrorMsg");
-             messageErrCity.textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
+             document.querySelector("#cityErrorMsg").textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
              return false;
              }
         }
@@ -202,46 +210,48 @@
         function validerAdresse (){
           const adresse = formulaireInfoClient.address;
           if(/^[0-9]{1,20}[A-Z a-z]{1,20}[0-9]{5,5}$/.test(adresse)){
+              document.querySelector("#addressErrorMsg").textContent= "";
               return true;
           }else{
-              let messageErrAdresse= document.querySelector("#addressErrorMsg");
-              messageErrAdresse.textContent= "Indiquez dans cet ordre: le numéro l'adresse et le code postal. ";
+              document.querySelector("#addressErrorMsg").textContent= "Indiquez dans cet ordre: le numéro l'adresse et le code postal. ";
               return false;
               }
         }
                 
-
             //Email----------
         function validerEmail (){
           const email = formulaireInfoClient.email;
           if(/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/.test(email)){
+              document.querySelector("#emailErrorMsg").textContent="";
               return true;
           }else{
-              let messageErrAdresse= document.querySelector("#emailErrorMsg");
-              messageErrAdresse.textContent= "Indiquez dans cet ordre: le numéro l'adresse et le code postal. ";
+              document.querySelector("#emailErrorMsg").textContent= "Saisissez une adresse Email valide ";
               return false;
               }
         }
                     
        //----Valider l'info ---------- 
         if (validerPrenom()&& validerNom() && validerAdresse()&& validerVille() && validerEmail()){
-          localStorage.setItem("formulaireInfoClient", JSON.stringify(formulaireInfoClient));
+          localStorage.setItem("contact", JSON.stringify(formulaireInfoClient));
         }else{
-          alert (textAlertErr);
+          alert ("Veuillez bien remplir le formulaire");
         }
         const envoyerCommande= {
             saveProduitLocalStorage,
             formulaireInfoClient
         }
-                console.log(envoyerCommande)
+        console.log(envoyerCommande);
+        // boutton valider commande-----------
+        const envoyerData = fetch ('http://localhost:3000/api/products/order', {
+            method: "POST",
+            body: JSON.stringify(envoyerCommande),
+            headers:{ "Content-Type": "application/json",},
+
+        });
+        console.log (envoyerData);
         });
 
 
-
-
-
-
-// boutton valider commande-----------
 
 
 //-------------------------------try
