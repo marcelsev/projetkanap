@@ -9,7 +9,6 @@
         if (saveProduitLocalStorage === null || saveProduitLocalStorage== 0 ) {
             const panierVide = `<article class="cart__item">Le panier est vide</article>`;
             ItemProduit.innerHTML= panierVide;
-
         } else {
         for (let i = 0; i < saveProduitLocalStorage.length; i++){
         //console.log(saveProduitLocalStorage.length);
@@ -43,8 +42,11 @@
         let colorItem= document.createElement("p");
             colorItem.innerHTML= saveProduitLocalStorage[i].colorProduct;
     //prix------------------
+        let prixItem = saveProduitLocalStorage[i].price;
+        let qtyItem = saveProduitLocalStorage[i].quantite;
+        let multiplication = prixItem * qtyItem;
         let priceItem = document.createElement("p");
-            priceItem.innerHTML= `${saveProduitLocalStorage[i].price} €`;
+            priceItem.innerHTML= `Total produits: ${multiplication}€`;
             containerContenuDescription.append(h2, colorItem, priceItem);
     //product parametres------
         let parametresItem= document.createElement("div");
@@ -75,8 +77,9 @@
             pDelete.innerHTML="Supprimer";
             buttonDelete.append(pDelete);
 
-    ItemProduit.append(article);
-   }}      
+            ItemProduit.append(article);
+        }}       
+
 // gestion bouton suppimer------------------- 
         let boutonSupprimer = document.querySelectorAll(".deleteItem");
 
@@ -92,3 +95,82 @@
             window.location.href = "http://127.0.0.1:5500/front/html/cart.html";
         })
         }
+
+// changer quantite -------------
+        const changeQty = document.querySelectorAll("input");
+            changeQty.forEach((quantiteInput)=>{
+            quantiteInput.addEventListener('change', (e)=>{
+            e.preventDefault();
+        let changement= saveProduitLocalStorage.quantite;
+            changement = e.target.valueAsNumber;
+            if (changement == saveProduitLocalStorage){
+
+            }else {
+
+                localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
+                changement.push(saveProduitLocalStorage.quantite)
+            }
+
+        console.log (changement);
+            }) 
+                  // toujours à travailler pour trouver comme faire 
+            });  
+// total products ---------------
+
+        let totalProduct= [];
+        for (let i = 0 ; i < saveProduitLocalStorage.length;i++){
+        let quantiteTotal = saveProduitLocalStorage[i].quantite;
+            totalProduct.push(quantiteTotal);
+            //console.log(quantiteTotal)
+        }
+        const reducer = (accumulator, currentValue)=> accumulator + currentValue;
+        const qtyTotalPanier = totalProduct.reduce(reducer,0);
+            //console.log (qtyTotalPanier)
+        const qtyAffichage= document.querySelector("#totalQuantity");
+            qtyAffichage.innerHTML=qtyTotalPanier;
+
+// total price --------------------
+        let totalPrice = [];
+        for(let p = 0; p< saveProduitLocalStorage.length; p++){
+        let prixTotalProduct= saveProduitLocalStorage[p].price * saveProduitLocalStorage[p].quantite;
+            totalPrice.push(prixTotalProduct);
+        //console.log(prixTotalProduct);
+        }
+        const prixPayer = totalPrice.reduce(reducer,0);
+        //console.log (prixPayer)
+        const priceAffichage= document.querySelector("#totalPrice");
+            priceAffichage.innerHTML=prixPayer;
+
+// formulaire--------------
+        btnCommander= document.querySelector("#order");
+        btnCommander.addEventListener("click", (e)=>{
+            e.preventDefault();
+
+            localStorage.setItem("firstName", document.querySelector("#firstName").value);
+            localStorage.setItem("lastName", document.querySelector("#lastName").value);
+            localStorage.setItem("address", document.querySelector("#address").value);
+            localStorage.setItem("city", document.querySelector("#city").value);
+            localStorage.setItem("email", document.querySelector("#email").value);
+        })
+
+// boutton valider commande-----------
+
+
+//-------------------------------try
+       //console.log(changeQty)
+    /*function changerLaQuantite (){
+        const changeQty = document.querySelectorAll("input");
+        changeQty.forEach
+        changeQty.addEventListener("change", (e)=>{
+            e.preventDefault();
+         let quantityChange= saveProduitLocalStorage[c].quantite;
+         console.log(quantityChange);
+          quantityChange = e.target.valueAsNumber;
+            localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
+            return quantityChange;
+            //console.log(quantityChange) 
+        })
+        }     
+    
+    
+        changerLaQuantite();*/

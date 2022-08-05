@@ -46,7 +46,7 @@ let search_params = new URLSearchParams (url.search);
 
 // -------button ajouter au panier, gestion -------------
 // selectors ----------
-    const qtyProduct = document.getElementById("quantity");     
+    const qtyProduct = document.getElementById("quantity");    
     const  formColor= document.querySelector("#colors");
     const buttonPanier = document.getElementById("addToCart");
     
@@ -57,6 +57,7 @@ let search_params = new URLSearchParams (url.search);
     buttonPanier.addEventListener("click", (e)=> {e.preventDefault();
         const optionColor = formColor.value;
         const qntity = qtyProduct.value;
+        const changerQty = Number(qtyProduct.value);
         const nomProduct= data.name;
         const imgProductSrc= data.imageUrl;
         const imgProductAlt= data.altTxt;
@@ -64,7 +65,7 @@ let search_params = new URLSearchParams (url.search);
     let optionProduct = {
         idProduit: nom,
         colorProduct: optionColor,
-        quantite: qntity,
+        quantite: changerQty,
         nameProduct: nomProduct,
         imgUrl: imgProductSrc,
         imgAtl: imgProductAlt,
