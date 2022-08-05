@@ -103,15 +103,13 @@
             e.preventDefault();
         let changement= saveProduitLocalStorage.quantite;
             changement = e.target.valueAsNumber;
-            if (changement == saveProduitLocalStorage){
+            if (changement == saveProduitLocalStorage.quantite){
 
             }else {
-
-                localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
-                changement.push(saveProduitLocalStorage.quantite)
+                
             }
 
-        console.log (changement);
+        //console.log (changement);
             }) 
                   // toujours à travailler pour trouver comme faire 
             });  
@@ -141,36 +139,110 @@
         const priceAffichage= document.querySelector("#totalPrice");
             priceAffichage.innerHTML=prixPayer;
 
-// formulaire--------------
-        btnCommander= document.querySelector("#order");
+// formulaire gestion --------------------------
+        let btnCommander= document.querySelector("#order");
         btnCommander.addEventListener("click", (e)=>{
             e.preventDefault();
+        const formulaireInfoClient={
+            firstName: document.querySelector("#firstName").value,
+            lastName: document.querySelector("#lastName").value,
+            address: document.querySelector("#address").value,
+            city: document.querySelector("#city").value,
+            email: document.querySelector("#email").value
+        }
+       
+     // valider le formulaire ----------------------------
+        // erreur de text dans le formulaire-------------------
+        const regexFormulaire = (value)=>{
+            return /^[A-Z a-z]{3,20}$/.test(value);
+        }
+        const textAlertErr= (value)=>{
+            return `${value}: Veuillez bien remplir le formulaire`;
+        }
+        // gestion validation de text -------------------
+            
+            //Prenom--------
+        function validerPrenom (){
+          const prenom = formulaireInfoClient.firstName;
+          if(regexFormulaire(prenom)){
+            return true;
+          }else{
+            let messageErr= document.querySelector("#firstNameErrorMsg");
+            messageErr.textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
+            return false;
+            }
+        }
+       
 
-            localStorage.setItem("firstName", document.querySelector("#firstName").value);
-            localStorage.setItem("lastName", document.querySelector("#lastName").value);
-            localStorage.setItem("address", document.querySelector("#address").value);
-            localStorage.setItem("city", document.querySelector("#city").value);
-            localStorage.setItem("email", document.querySelector("#email").value);
-        })
+            //Nom----------
+        function validerNom (){
+          const nom = formulaireInfoClient.lastName;
+          if(regexFormulaire(nom)){
+             return true;
+          }else{
+             let messageErrNom= document.querySelector("#lastNameErrorMsg");
+             messageErrNom.textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
+             return false;
+             }
+        }
+        
+            //Ville---------
+        function validerVille (){
+          const ville = formulaireInfoClient.city;
+          if(regexFormulaire(ville)){
+            return true;
+          }else{
+             let messageErrCity= document.querySelector("#cityErrorMsg");
+             messageErrCity.textContent= "Seules les lettres a-z sont autorisées, 20 caractères maximum, 3 minimum.";
+             return false;
+             }
+        }
+       
+            //Address-------
+        function validerAdresse (){
+          const adresse = formulaireInfoClient.address;
+          if(/^[0-9]{1,20}[A-Z a-z]{1,20}[0-9]{5,5}$/.test(adresse)){
+              return true;
+          }else{
+              let messageErrAdresse= document.querySelector("#addressErrorMsg");
+              messageErrAdresse.textContent= "Indiquez dans cet ordre: le numéro l'adresse et le code postal. ";
+              return false;
+              }
+        }
+                
+
+            //Email----------
+        function validerEmail (){
+          const email = formulaireInfoClient.email;
+          if(/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/.test(email)){
+              return true;
+          }else{
+              let messageErrAdresse= document.querySelector("#emailErrorMsg");
+              messageErrAdresse.textContent= "Indiquez dans cet ordre: le numéro l'adresse et le code postal. ";
+              return false;
+              }
+        }
+                    
+       //----Valider l'info ---------- 
+        if (validerPrenom()&& validerNom() && validerAdresse()&& validerVille() && validerEmail()){
+          localStorage.setItem("formulaireInfoClient", JSON.stringify(formulaireInfoClient));
+        }else{
+          alert (textAlertErr);
+        }
+        const envoyerCommande= {
+            saveProduitLocalStorage,
+            formulaireInfoClient
+        }
+                console.log(envoyerCommande)
+        });
+
+
+
+
+
 
 // boutton valider commande-----------
 
 
 //-------------------------------try
-       //console.log(changeQty)
-    /*function changerLaQuantite (){
-        const changeQty = document.querySelectorAll("input");
-        changeQty.forEach
-        changeQty.addEventListener("change", (e)=>{
-            e.preventDefault();
-         let quantityChange= saveProduitLocalStorage[c].quantite;
-         console.log(quantityChange);
-          quantityChange = e.target.valueAsNumber;
-            localStorage.setItem("product", JSON.stringify(saveProduitLocalStorage));
-            return quantityChange;
-            //console.log(quantityChange) 
-        })
-        }     
-    
-    
-        changerLaQuantite();*/
+  
