@@ -184,8 +184,8 @@ btnCommander.addEventListener("click", (e) => {
         city: document.querySelector("#city").value,
         email: document.querySelector("#email").value
     }
- // valider le formulaire ----------------------------
-       // erreur de text dans le formulaire-------------------
+    // valider le formulaire ----------------------------
+    // erreur de text dans le formulaire-------------------
     const regexFormulaire = (value) => {
         return /^([A-Z a-z]{3,20})?([-]{0,1})?([A-Z a-z]{3,20})$/.test(value);
     }
@@ -247,12 +247,12 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     //----Valider l'info ---------- 
-        if (validerPrenom() && validerNom() && validerAdresse() && validerVille() && validerEmail()) {
-            localStorage.setItem("contact", JSON.stringify(contact));
-        } else {
-            alert("Veuillez bien remplir le formulaire");
-        }
-//obtenir l'info produits et formulaire --------------------
+    if (validerPrenom() && validerNom() && validerAdresse() && validerVille() && validerEmail()) {
+        localStorage.setItem("contact", JSON.stringify(contact));
+    } else {
+        alert("Veuillez bien remplir le formulaire");
+    }
+    //obtenir l'info produits et formulaire --------------------
     let cart = contact;
     for (let i = 0; i < panier.length; i++) {
         products.push(panier[i].id);
@@ -261,10 +261,10 @@ btnCommander.addEventListener("click", (e) => {
     let order = {
         contact: cart,
         products: products
-    } 
+    }
     console.log(order)
-//fonction envoyer la commande--------------
-    function sendOrder(){ 
+    //fonction envoyer la commande--------------
+    function sendOrder() {
         const envoyerData = fetch('http://localhost:3000/api/products/order', {
             method: "POST",
             body: JSON.stringify(order),
@@ -280,19 +280,21 @@ btnCommander.addEventListener("click", (e) => {
             .catch(function (err) {
                 (err);
             })
-            if (orderId != ""){
-            location.href=`./confirmation.html?orderId=${orderId}`;
-            }else{ 
-            }
+        if (orderId != "") {
+            location.href = `./confirmation.html?orderId=${orderId}`;
+        } else {
+        }
     }
-        sendOrder();
-    });
-        
+    sendOrder();
+});
 
 
 
-    
-   
+
+
+
+
+
 
 
 
