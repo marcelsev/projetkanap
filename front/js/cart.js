@@ -104,7 +104,8 @@ async function getIdKanap(productId) {
         })
         .then(function (res) {
             return res;
-        });
+        })
+        .catch((error) => { console.log("error") })
 }
 
 // gestion bouton suppimer------------------- 
@@ -277,7 +278,7 @@ btnCommander.addEventListener("click", (e) => {
                 orderId = data.orderId;
                 console.log(orderId);
             })
-            .catch(function (err) {
+            .catch((err) => {
                 (err);
             })
         if (orderId != "") {

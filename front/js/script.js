@@ -29,7 +29,8 @@ function productStock() {
         article.append(img, nom, p);
         product.append(a);
       }
-    });
+    })
+    .catch((error) => { console.log("error") })
 };
 
 productStock();

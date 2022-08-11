@@ -12,9 +12,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
         infoProduct(product);
         saveProduct(product);
     })
-//.catch 
-
-
+    .catch((error) => { console.log("error") })
 
 // DECLARER LES variables pour le DOM innerhtml-----------
 let nameProduct = document.getElementById("title");
