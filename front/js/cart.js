@@ -32,7 +32,6 @@ async function contenuPanier() {
             img.src = product.imageUrl;
             img.alt = product.altTxt;
             containerImg.append(img);
-
             //contenu-----------           
             let containerContenu = document.createElement("div");
             article.append(containerContenu);
@@ -45,7 +44,6 @@ async function contenuPanier() {
             let h2 = document.createElement("h2")
             h2.innerHTML = product.name;
             //color---------
-
             let colorItem = document.createElement("p");
             colorItem.innerHTML = panier[i].color;
             //prix------------------
@@ -86,6 +84,7 @@ async function contenuPanier() {
             ItemProduit.append(article);
         }
     }
+    //calcul prix-----------------------
     let totalPrice = 0
     for (let i = 0; i < panier.length; i++) {
         let item = await getIdKanap(panier[i].id);
@@ -108,11 +107,7 @@ async function getIdKanap(productId) {
         });
 }
 
-
-
 // gestion bouton suppimer------------------- 
-
-//console.log(boutonSupprimer)
 function supprimerProduct() {
     const boutonSupprimer = document.querySelectorAll(".deleteItem");
     //console.log(boutonSupprimer);
@@ -133,11 +128,8 @@ function supprimerProduct() {
 supprimerProduct();
 
 // changer quantite -------------
-
 function changeQuantite() {
     const changeQty = document.querySelectorAll(".itemQuantity");
-
-    //console.log(changeQty)
     changeQty.forEach((quantiteInput) => {
         quantiteInput.addEventListener("change", (e) => {
             e.preventDefault();
@@ -151,7 +143,6 @@ function changeQuantite() {
             for (let i = 0; i < panier.length; i++) {
                 if (infoId === panier[i].id && infoColor === panier[i].color) {
                     panier[i].quantite = changement;
-
                     localStorage.setItem("products", JSON.stringify(panier));
                     location.reload();
                     console.log(panier)
@@ -161,21 +152,7 @@ function changeQuantite() {
     });
 }
 changeQuantite();
-/*changeQty.forEach((quantiteInput) => {
-quantiteInput.addEventListener('change', (e) => {
-  e.preventDefault();
-  let changement = panier.quantite;
-  changement = e.target.valueAsNumber;
-  console.log(changement)
-  if (changement == panier.quantite) {
-      return panier.quantite
-  } else {
-      return localStorage.setItem("products", JSON.stringify(panier));
-  }
 
-})
-// toujours à travailler pour trouver comme faire 
-});*/
 // total products ---------------
 function quantiteTotal() {
     let totalProduct = [];
@@ -195,28 +172,27 @@ quantiteTotal();
 
 
 
-// formulaire gestion --------------------------
+// ---------------------formulaire gestion --------------------------
+
 let btnCommander = document.querySelector("#order");
 btnCommander.addEventListener("click", (e) => {
     e.preventDefault();
-    const formulaireInfoClient = {
+    const contact = {
         firstName: document.querySelector("#firstName").value,
         lastName: document.querySelector("#lastName").value,
         address: document.querySelector("#address").value,
         city: document.querySelector("#city").value,
         email: document.querySelector("#email").value
     }
-
-    // valider le formulaire ----------------------------
-    // erreur de text dans le formulaire-------------------
+ // valider le formulaire ----------------------------
+       // erreur de text dans le formulaire-------------------
     const regexFormulaire = (value) => {
         return /^([A-Z a-z]{3,20})?([-]{0,1})?([A-Z a-z]{3,20})$/.test(value);
     }
     // gestion validation de text -------------------
-
     //Prenom--------
     function validerPrenom() {
-        const prenom = formulaireInfoClient.firstName;
+        const prenom = contact.firstName;
         if (regexFormulaire(prenom)) {
             document.querySelector("#firstNameErrorMsg").textContent = "";
             return true;
@@ -225,10 +201,9 @@ btnCommander.addEventListener("click", (e) => {
             return false;
         }
     }
-
     //Nom----------
     function validerNom() {
-        const nom = formulaireInfoClient.lastName;
+        const nom = contact.lastName;
         if (regexFormulaire(nom)) {
             document.querySelector("#lastNameErrorMsg").textContent = "";
             return true;
@@ -237,10 +212,9 @@ btnCommander.addEventListener("click", (e) => {
             return false;
         }
     }
-
     //Ville---------
     function validerVille() {
-        const ville = formulaireInfoClient.city;
+        const ville = contact.city;
         if (regexFormulaire(ville)) {
             document.querySelector("#cityErrorMsg").textContent = "";
             return true;
@@ -249,10 +223,9 @@ btnCommander.addEventListener("click", (e) => {
             return false;
         }
     }
-
     //Address-------
     function validerAdresse() {
-        const adresse = formulaireInfoClient.address;
+        const adresse = contact.address;
         if (/^[0-9]{1,20}?([,]{0,1})?[A-Z a-z]{1,20}[0-9]{5,5}$/.test(adresse)) {
             document.querySelector("#addressErrorMsg").textContent = "";
             return true;
@@ -261,10 +234,9 @@ btnCommander.addEventListener("click", (e) => {
             return false;
         }
     }
-
     //Email----------
     function validerEmail() {
-        const email = formulaireInfoClient.email;
+        const email = contact.email;
         if (/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/.test(email)) {
             document.querySelector("#emailErrorMsg").textContent = "";
             return true;
@@ -275,33 +247,60 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     //----Valider l'info ---------- 
-    if (validerPrenom() && validerNom() && validerAdresse() && validerVille() && validerEmail()) {
-        localStorage.setItem("contact", JSON.stringify(formulaireInfoClient));
-    } else {
-        alert("Veuillez bien remplir le formulaire");
+        if (validerPrenom() && validerNom() && validerAdresse() && validerVille() && validerEmail()) {
+            localStorage.setItem("contact", JSON.stringify(contact));
+        } else {
+            alert("Veuillez bien remplir le formulaire");
+        }
+//obtenir l'info produits et formulaire --------------------
+    let cart = contact;
+    for (let i = 0; i < panier.length; i++) {
+        products.push(panier[i].id);
+        console.log(cart)
     }
-    //--------------------------------------------
-    const envoyerCommande = {
-
-        formulaireInfoClient
+    let order = {
+        contact: cart,
+        products: products
+    } 
+    console.log(order)
+//fonction envoyer la commande--------------
+    function sendOrder(){ 
+        const envoyerData = fetch('http://localhost:3000/api/products/order', {
+            method: "POST",
+            body: JSON.stringify(order),
+            headers: { "Content-Type": "application/json", },
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                orderId = data.orderId;
+                console.log(orderId);
+            })
+            .catch(function (err) {
+                (err);
+            })
+            if (orderId != ""){
+            location.href=`./confirmation.html?orderId=${orderId}`;
+            }else{ 
+            }
     }
-    console.log(envoyerCommande);
-    // boutton valider commande-----------
-    const envoyerData = fetch('http://localhost:3000/api/products/order', {
-        method: "POST",
-        body: JSON.stringify(envoyerCommande),
-        headers: { "Content-Type": "application/json", },
-
+        sendOrder();
     });
-    console.log(envoyerData);
-});
+        
 
 
-//let prueba = document.querySelectorAll("input");
-//console.log(prueba);
+
+    
+   
 
 
-//-------------------------------try
+
+
+
+
+
+//-------------------------------BROUILLON-------
 /* 
 ItemProduit.innerHTML += `<article class="cart__item" data-id="${panier[i].id}" data-color="${panier[i].color}">
     <div class="cart__item__img">

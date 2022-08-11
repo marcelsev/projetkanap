@@ -1,6 +1,8 @@
+
+//declarer la URL de l'API--------
 const urlStock = 'http://localhost:3000/api/products';
 
-
+//fonction afficher les produits dans le DOM------------
 function productStock() {
   fetch(urlStock)
     .then(response => response.json())

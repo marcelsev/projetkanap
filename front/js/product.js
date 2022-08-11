@@ -1,3 +1,5 @@
+// prendre l'ID du produit----------------
+
 const getIdKanap = () => {
     return new URL(location.href).searchParams.get("id");
 };
@@ -12,13 +14,9 @@ fetch(`http://localhost:3000/api/products/${productId}`)
     })
 //.catch 
 
-// declaration de variables -----------
-/*const urlStock = 'http://localhost:3000/api/products/';
-let url = window.location;
-let search_params = new URLSearchParams(url.search);
-const nom = search_params.get("id");*/
 
-// variables pour le DOM innerhtml-----------
+
+// DECLARER LES variables pour le DOM innerhtml-----------
 let nameProduct = document.getElementById("title");
 let tittle = document.querySelector("title");
 let imgProduit = document.querySelector(".item__img");
@@ -28,23 +26,8 @@ let allColors = document.getElementById("colors");
 let qtyProduct = document.getElementById("quantity");
 let buttonPanier = document.getElementById("addToCart");
 // function pour prendre l'ID du produit--------
-/*function getId() {
-    if (search_params.has("id")) {
-        return true;
-        // console.log (nom);
-    } else {
-        return false
-    }
-}
-getId();*/
-// appeler lAPI avec fetch -------
-/*fetch(urlStock + nom)
-    .then(response => response.json())
-    .then((data) => infoStock(data))
 
-// Modifier le DOM-------------------
-
-function infoStock(data) */
+//Fonction afficher le produit sur le DOM----------
 let infoProduct = (product) => {
     //nom et tittle du produit-----
     nameProduct.innerHTML = product.name;
@@ -65,7 +48,7 @@ let infoProduct = (product) => {
         allColors.append(color)
     }
 }
-
+//Fonction garder le produit dans la LS--------------
 let saveProduct = (product) => {
     buttonPanier.addEventListener("click", (e) => {
         e.preventDefault();
@@ -83,7 +66,7 @@ let saveProduct = (product) => {
                 color: allColors.value,
                 quantite: parseInt(qtyProduct.value, 10),
 
-            }; 
+            };
             let saveProduitLocalStorage = JSON.parse(localStorage.getItem("products"));
             if (saveProduitLocalStorage) {
                 let item = saveProduitLocalStorage.find((item) => item.id == optionProduct.id && item.color == optionProduct.color);
@@ -105,15 +88,39 @@ let saveProduct = (product) => {
         }
     })
 }
-//buttonPanier.addEventListener("click", () => {
-  //  window.location.href = "./cart.html";
-    //});
 
+
+
+
+
+// BROUILLON------------------------------
 
 /*
+
+// declaration de variables -----------
+/*const urlStock = 'http://localhost:3000/api/products/';
+let url = window.location;
+let search_params = new URLSearchParams(url.search);
+const nom = search_params.get("id");
 const infoStock = (data) => {
     //nom du produit-----
- 
+ function getId() {
+    if (search_params.has("id")) {
+        return true;
+        // console.log (nom);
+    } else {
+        return false
+    }
+}
+getId();*/
+// appeler lAPI avec fetch -------
+/*fetch(urlStock + nom)
+    .then(response => response.json())
+    .then((data) => infoStock(data))
+
+// Modifier le DOM-------------------
+
+function infoStock(data) 
     nameProduct.innerHTML = data.name;
     let tittle = document.querySelector("title");
     tittle.innerHTML = data.name;
