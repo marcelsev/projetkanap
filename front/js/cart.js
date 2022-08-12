@@ -137,9 +137,6 @@ function changeQuantite() {
             let changement = e.target.valueAsNumber;
             let infoId = e.target.getAttribute("data-id");
             let infoColor = e.target.getAttribute("data-color");
-            console.log(changement)
-            console.log(infoId)
-            console.log(infoColor)
             //console.log(newPanier)
             for (let i = 0; i < panier.length; i++) {
                 if (infoId === panier[i].id && infoColor === panier[i].color) {
@@ -248,16 +245,23 @@ btnCommander.addEventListener("click", (e) => {
     }
 
     //----Valider l'info ---------- 
-    if (validerPrenom() && validerNom() && validerAdresse() && validerVille() && validerEmail()) {
-        localStorage.setItem("contact", JSON.stringify(contact));
-    } else {
-        alert("Veuillez bien remplir le formulaire");
+    function validerForm() {
+
+        if (validerPrenom() && validerNom() && validerAdresse() && validerVille() && validerEmail()) {
+            localStorage.setItem("contact", JSON.stringify(contact));
+            return true;
+        } else {
+
+            alert("Veuillez bien remplir le formulaire");
+            return false;
+        }
     }
+    validerForm();
     //obtenir l'info produits et formulaire --------------------
     let cart = contact;
     for (let i = 0; i < panier.length; i++) {
         products.push(panier[i].id);
-        console.log(cart)
+        //console.log(cart)
     }
     let order = {
         contact: cart,
@@ -266,24 +270,26 @@ btnCommander.addEventListener("click", (e) => {
     console.log(order)
     //fonction envoyer la commande--------------
     function sendOrder() {
-        const envoyerData = fetch('http://localhost:3000/api/products/order', {
-            method: "POST",
-            body: JSON.stringify(order),
-            headers: { "Content-Type": "application/json", },
-        })
-            .then((res) => {
-                return res.json();
+        if (validerForm() == true) {
+            const envoyerData = fetch('http://localhost:3000/api/products/order', {
+                method: "POST",
+                body: JSON.stringify(order),
+                headers: { "Content-Type": "application/json", },
             })
-            .then((data) => {
-                orderId = data.orderId;
-                console.log(orderId);
-            })
-            .catch((err) => {
-                (err);
-            })
-        if (orderId != "") {
-            location.href = `./confirmation.html?orderId=${orderId}`;
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    orderId = data.orderId;
+                    location.href = `./confirmation.html?orderId=${orderId}`;
+                   // console.log(orderId);
+                })
+                .catch((err) => {
+                    (err);
+                })
+
         } else {
+            alert("erreur de la commande")
         }
     }
     sendOrder();
