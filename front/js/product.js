@@ -23,7 +23,6 @@ let allColors = document.getElementById("colors");
 // selection pour quantite et bouton panier ----------
 let qtyProduct = document.getElementById("quantity");
 let buttonPanier = document.getElementById("addToCart");
-// function pour prendre l'ID du produit--------
 
 //Fonction afficher le produit sur le DOM----------
 let infoProduct = (product) => {
