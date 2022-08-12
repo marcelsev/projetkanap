@@ -282,7 +282,7 @@ btnCommander.addEventListener("click", (e) => {
                 .then((data) => {
                     orderId = data.orderId;
                     location.href = `./confirmation.html?orderId=${orderId}`;
-                   // console.log(orderId);
+                    // console.log(orderId);
                 })
                 .catch((err) => {
                     (err);
