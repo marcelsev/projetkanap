@@ -15,28 +15,28 @@ fetch(`http://localhost:3000/api/products/${productId}`)
     .catch((error) => { console.log("error") })
 
 // DECLARER LES variables pour le DOM innerhtml-----------
-let nameProduct = document.getElementById("title");
-let tittle = document.querySelector("title");
-let imgProduit = document.querySelector(".item__img");
-let description = document.getElementById("description");
-let allColors = document.getElementById("colors");
+const nameProduct = document.getElementById("title");
+const tittle = document.querySelector("title");
+const imgProduit = document.querySelector(".item__img");
+const description = document.getElementById("description");
+const allColors = document.getElementById("colors");
 // selection pour quantite et bouton panier ----------
 let qtyProduct = document.getElementById("quantity");
 let buttonPanier = document.getElementById("addToCart");
 
 //Fonction afficher le produit sur le DOM----------
-let infoProduct = (product) => {
+const infoProduct = (product) => {
     //nom et tittle du produit-----
-    nameProduct.innerHTML = product.name;
-    tittle.innerHTML = product.name;
+    nameProduct.textContent = product.name;
+    tittle.textContent = product.name;
     //image du produit-----
     img = document.createElement("img");
     img.src = product.imageUrl
     img.alt = product.altTxt;
     imgProduit.append(img);
-    description.innerHTML = product.description;
+    description.textContent = product.description;
     //prix du produit------
-    price.innerHTML = product.price;
+    price.textContent = product.price;
     // option couleurs----------- 
     for (let colorOption of product.colors) {
         let color = document.createElement('option');
@@ -46,7 +46,7 @@ let infoProduct = (product) => {
     }
 }
 //Fonction garder le produit dans la LS--------------
-let saveProduct = (product) => {
+const saveProduct = (product) => {
     buttonPanier.addEventListener("click", (e) => {
         e.preventDefault();
         if (allColors.value == false) {

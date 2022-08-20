@@ -11,7 +11,7 @@ function productStock() {
       let product = document.getElementById("items");
       for (let i = 0; i < data.length; i++) {
         let article = document.createElement("article");
-        article.innerHTML = "";
+        article.textContent = "";
         let a = document.createElement("a");
         a.href = `./product.html?id=${data[i]._id}`;
 
@@ -20,10 +20,10 @@ function productStock() {
         img.alt = data[i].altTxt;
 
         let nom = document.createElement("h3");
-        nom.innerHTML = data[i].name;
+        nom.textContent = data[i].name;
 
         let p = document.createElement("p");
-        p.innerHTML = data[i].description;
+        p.textContent = data[i].description;
 
         a.insertAdjacentElement("afterbegin", article);
         article.append(img, nom, p);

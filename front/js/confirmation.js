@@ -4,11 +4,11 @@ function recupId() {
     return new URL(location.href).searchParams.get("orderId");
 }
 
-let orderNumber = recupId();
+const orderNumber = recupId();
 console.log(orderNumber)
-let divOrder = document.querySelector("#orderId");
+const divOrder = document.querySelector("#orderId");
 function putId() {
-    divOrder.innerHTML = orderNumber;
+    divOrder.textContent = orderNumber;
     localStorage.clear();
 }
 putId();

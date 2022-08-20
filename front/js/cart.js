@@ -10,8 +10,8 @@ console.log(panier)
 async function contenuPanier() {
     const ItemProduit = document.querySelector("#cart__items");
     if (!panier || panier.length === 0) {
-        const panierVide = `<article class="cart__item">Le panier est vide</article>`;
-        ItemProduit.innerHTML = panierVide;
+        const panierVide = "Le panier est vide";
+        ItemProduit.textContent = panierVide;
     } else {
         for (let i = 0; i < panier.length; i++) {
             //console.log(panier)
@@ -22,10 +22,10 @@ async function contenuPanier() {
             let article = document.createElement("article");
             article.dataset.id = panier[i].id
             article.dataset.color = panier[i].color
-            article.innerHTML = "";
+            article.textContent = "";
             article.classList.add("cart__item")
             //image------------------
-            let containerImg = document.createElement("div");
+            const containerImg = document.createElement("div");
             article.append(containerImg);
             containerImg.classList.add("cart__item__img")
             let img = document.createElement("img")
@@ -33,36 +33,36 @@ async function contenuPanier() {
             img.alt = product.altTxt;
             containerImg.append(img);
             //contenu-----------           
-            let containerContenu = document.createElement("div");
+            const containerContenu = document.createElement("div");
             article.append(containerContenu);
             containerContenu.classList.add("cart__item__content");
             //contenu description--------
-            let containerContenuDescription = document.createElement("div");
+            const containerContenuDescription = document.createElement("div");
             containerContenu.append(containerContenuDescription);
             containerContenuDescription.classList.add("cart__item__content__description");
             //nom----------- 
-            let h2 = document.createElement("h2")
-            h2.innerHTML = product.name;
+            const h2 = document.createElement("h2")
+            h2.textContent = product.name;
             //color---------
-            let colorItem = document.createElement("p");
-            colorItem.innerHTML = panier[i].color;
+            const colorItem = document.createElement("p");
+            colorItem.textContent = panier[i].color;
             //prix------------------
-            let priceItem = document.createElement("p");
-            priceItem.innerHTML = `Total produits: ${totalPrice}€`;
+            const priceItem = document.createElement("p");
+            priceItem.textContent = `Total produits: ${totalPrice}€`;
             containerContenuDescription.append(h2, colorItem, priceItem);
             //product parametres------
-            let parametresItem = document.createElement("div");
+            const parametresItem = document.createElement("div");
             parametresItem.classList.add("cart__item__content__settings");
             article.append(parametresItem);
             // quantite product ---------         
-            let quantiteItem = document.createElement("div");
+            const quantiteItem = document.createElement("div");
             quantiteItem.classList.add("cart__item__content__settings__quantity")
             parametresItem.append(quantiteItem);
-            let parQte = document.createElement("p");
-            parQte.innerHTML = "Qté : ";
+            const parQte = document.createElement("p");
+            parQte.textContent = "Qté : ";
             quantiteItem.append(parQte);
             //input------
-            let inputQte = document.createElement("input");
+            const inputQte = document.createElement("input");
             inputQte.dataset.id = panier[i].id
             inputQte.dataset.color = panier[i].color
             inputQte.type = "number"
@@ -78,7 +78,7 @@ async function contenuPanier() {
             parametresItem.append(buttonDelete);
             let pDelete = document.createElement("p");
             pDelete.classList.add("deleteItem");
-            pDelete.innerHTML = "Supprimer";
+            pDelete.textContent = "Supprimer";
             buttonDelete.append(pDelete);
 
             ItemProduit.append(article);
@@ -92,7 +92,7 @@ async function contenuPanier() {
     }
     supprimerProduct();
     changeQuantite();
-    document.getElementById("totalPrice").innerHTML = totalPrice;
+    document.getElementById("totalPrice").textContent = totalPrice;
 }
 contenuPanier();
 
@@ -115,6 +115,9 @@ function supprimerProduct() {
     for (let s = 0; s < boutonSupprimer.length; s++) {
         boutonSupprimer[s].addEventListener("click", (e) => {
             e.preventDefault();
+            let productRow= e.target.parentNode.parentNode.parentNode;
+            productRow.remove();
+            console.log(productRow)
             let selectProductSup = panier[s].id;
             let colorSup = panier[s].color;
             console.log(colorSup)
@@ -122,7 +125,8 @@ function supprimerProduct() {
             panier = panier.filter((el) => !(el.id == selectProductSup && el.color == colorSup));
             localStorage.setItem("products", JSON.stringify(panier));
             alert("Ce produit a été supprimé");
-            window.location.href = "http://127.0.0.1:5500/front/html/cart.html";
+            //location.reload();
+           
         })
     }
 }
@@ -164,7 +168,7 @@ function quantiteTotal() {
     const qtyTotalPanier = totalProduct.reduce(reducer, 0);
     //console.log (qtyTotalPanier)
     const qtyAffichage = document.querySelector("#totalQuantity");
-    qtyAffichage.innerHTML = qtyTotalPanier;
+    qtyAffichage.textContent = qtyTotalPanier;
 }
 quantiteTotal();
 
@@ -172,7 +176,7 @@ quantiteTotal();
 
 // ---------------------formulaire gestion --------------------------
 
-let btnCommander = document.querySelector("#order");
+const btnCommander = document.querySelector("#order");
 btnCommander.addEventListener("click", (e) => {
     e.preventDefault();
     const contact = {
@@ -251,8 +255,6 @@ btnCommander.addEventListener("click", (e) => {
             localStorage.setItem("contact", JSON.stringify(contact));
             return true;
         } else {
-
-            alert("Veuillez bien remplir le formulaire");
             return false;
         }
     }
@@ -289,7 +291,7 @@ btnCommander.addEventListener("click", (e) => {
                 })
 
         } else {
-            alert("erreur de la commande")
+            alert("Veuillez bien remplir le formulaire")
         }
     }
     sendOrder();
